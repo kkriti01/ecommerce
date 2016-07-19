@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+<html>
+{% block title %} Dashboard {% endblock title %}
+{% block breadcrumb %}
+ <ol class="breadcrumb">
+    <li><a href="#">/Products</a></li>
+    <li style="float:right"><a href="#">Go To Shop</a></li>
+  </ol>
+{% endblock breadcrumb %}
+{% block content %}
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Featured</th>
+        <th>Active</th>
+        <th>COD</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      {% for item in product %}
+        <td><img src='{{ item.image }}'/>{{item.title}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.stock}}</td>
+        <td>{{item.featured}}</td>
+        <td>{{item.active}}</td>
+         <td><label><input type="checkbox" value="{{item.cod}}" checked></label></td>
+         <td><a href="{% url 'dashboard:update' item.id%}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+        <td><a href="{% url 'dashboard:delete' item.id%}"><span class="glyphicon glyphicon-remove-circle"></span></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
+</html>

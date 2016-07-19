@@ -1,0 +1,10 @@
+    <div class="row text-center" >
+            <div class="col-sm-4" ng-repeat="item in category">
+                <div class="thumbnail" >
+                    <a href="#/product/product_items/{/item.id/}/"><img ng-src="{/item.image/}" height="150px" width="150px"></a>
+                            <a href="#/product/product_items/{/item.id/}/"><strong>{/item.name/}</strong></a>
+                            <p>Rs{/item.price/}</p>
+                       <a href="#/product/product_items/{/item.id/}/"> <p>{/item.Featured/}</p></a>
+                </div>
+            </div>
+    </div>
