@@ -19,7 +19,7 @@
 {% endblock meta %}
 </head>
 <body ng-controller="MasterControllers">
-<nav class="navbar navbar-inverse">
+<nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#/">Seaso9</a>
@@ -36,8 +36,9 @@
     </ul>
   </div>
 </nav>
-
+<div class="container">
 <div ng-view=""></div>
+</div>
    <div class="category_items"></div>
 <div id="cartModal" class="modal fade">
     <div class="modal-dialog">

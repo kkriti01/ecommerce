@@ -19,7 +19,6 @@ class Cart(object):
                 item['quantity'] += quantity
                 item['price'] = (product.price * item['quantity'])
                 self.request.session['cart'] = cart
-                cart.append(item)
                 return cart
         item = {
             'id': product.id,

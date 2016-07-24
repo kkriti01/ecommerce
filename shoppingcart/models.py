@@ -1,15 +1,12 @@
-from django.contrib.sessions.models import Session
+import json
+from time import time
+
+
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-from account.models import Myuser
-
-
-class CartItem(models.Model):
-    product = models.ForeignKey(Product)
-    quantity = models.IntegerField()
-
-
-class Cart(models.Model):
-    user = models.ForeignKey(Myuser, on_delete=models.CASCADE)
-    items = models.ManyToManyField(CartItem)
+class Order(models.Model):
+    status_choice = (
+        ('initiated': 'initiated'),
+        ('proce'))

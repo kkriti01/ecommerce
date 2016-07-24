@@ -26,17 +26,21 @@ class CartView(View):
         cart = {'items': cart.add_item(product)}
         return HttpResponse(json.dumps(cart), content_type='application/json')
 
+
 def remove_item(request):
     item_id = request.POST.get('item_id', 0)
+    print item_id
     product = get_object_or_404(Product, id=item_id)
     cart = Cart(request)
     cart = {'items': cart.delete_item(product)}
     return HttpResponse(json.dumps(cart), content_type='application/json')
 
+
 def discard_cart(request):
     cart = Cart(request)
     cart.discard_cart()
     return HttpResponse('success')
+
 
 def increase_item_quantity(request):
     item_id = request.POST.get('item_id', 0)
@@ -44,6 +48,7 @@ def increase_item_quantity(request):
     cart = Cart(request)
     cart = {'items': cart.increase_item_quantity(product)}
     return HttpResponse(json.dumps(cart), content_type='application/json')
+
 
 def decrease_item_quantity(request):
     item_id = request.POST.get('item_id', 0)

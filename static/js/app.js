@@ -22,7 +22,7 @@ myApp.config(['$routeProvider',
       })
       .when('/product/product_items/:product_id/', {
         templateUrl: '/static/partials/products_details.html',
-        controller: 'product_detailsCtrl'
+        controller: 'productdetailsControllers'
       })
       .otherwise({
        redirectTo: '/'

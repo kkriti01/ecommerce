@@ -3,3 +3,12 @@
     color: white;
     font-size: 25px;
 }
+body
+{
+    background-image: url('/static/images/bg.png');
+}
+.image_category
+{
+    height: 300px;
+    width: 300px;
+}
