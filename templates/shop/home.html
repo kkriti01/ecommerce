@@ -16,6 +16,8 @@
   <script src="/static/js/controller/shop.js"></script>
   <script src="/static/js/controller/category.js"></script>
   <script src="/static/js/controller/product_details.js"></script>
+  <script src="/static/js/controller/checkoutcontroller.js"></script>
+
 {% endblock meta %}
 </head>
 <body ng-controller="MasterControllers">
@@ -24,10 +26,7 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#/">Seaso9</a>
     </div>
-    <ul class="nav navbar-nav" ng-repeat=
-    "items in category">
-    <li><a href="#/category/category_items/{/items.id/}/">{/items.name/}</a></li>
-    </ul>
+
     <ul class="nav navbar-nav navbar-right">
         <div class="cart">
         <span class="glyphicon glyphicon-shopping-cart right-icons" data-toggle="modal" data-target="#cartModal"></span>
@@ -36,7 +35,17 @@
     </ul>
   </div>
 </nav>
+<nav class="navbar-default">
+<ul class="dropdown" ng-repeat=
+    "items in category">
+  <div class="dropbtn"><a href="#/category/category_items/{/items.id/}/">{/items.name/}</a></div>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+  </div>
+</ul>
+</nav>
 <div class="container">
+
 <div ng-view=""></div>
 </div>
    <div class="category_items"></div>
@@ -68,6 +77,9 @@
     </div>
 </div>
 </div>
+
+
+
 </body>
 </html>
 

@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'', include(dashboardUrl, namespace="dashboard")),
     url(r'^account/', include(accountUrl, namespace="account")),
     url(r'^$', views.home),
+    url(r'checkout/$', views.checkout, name="checkout"),
     url(r'^cart/$', views.CartView.as_view(), name="cart"),
     url(r'^cart/remove_item/$', views.remove_item, name="remove_item"),
     url(r'^cart/discard_cart/$', views.discard_cart, name="discard_cart"),

@@ -16,7 +16,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(parent_category__isnull=True)
     serializer_class = CategorySerializer
 
 
@@ -26,6 +26,24 @@ class ProductFormView(View):
     def get(self, request, *args, **kwargs):
         product = Product.objects.all()
         return render(request, self.template_name, {'product': product})
+
+
+class SubCategoryView(View):
+
+    def get(self, request, *args, **kwargs):
+        parent_category_list = Category.objects.filter(parent_category__isnull=True)
+        for category_item in parent_category_list:
+            category_id = category_item.name
+            subcategory = Category.objects.filter(parent_category=category)
+            subcategory_list = []
+            for items in subcategory:
+                subcategory_list.append({
+                    'id': items.id,
+                    'name': items.name,
+                    'description': items.description,
+                })
+        parent_category_list.append({'subcategory_list': subcategory_list})
+        return JsonResponse({"parent_category_list": parent_category_list})
 
 
 class UpdateProductView(View):
@@ -85,4 +103,3 @@ class CategoryDetailsView(View):
             return JsonResponse({"product": prod_list})
         else:
             return HttpResponse("category Does Not Exist")
-

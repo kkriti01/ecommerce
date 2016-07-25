@@ -1,10 +1,12 @@
 import json
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
 
 from dashboard.models import Product
 from cart import Cart
+from forms import CheckoutForm
 
 
 def home(request):
@@ -56,3 +58,44 @@ def decrease_item_quantity(request):
     cart = Cart(request)
     cart = {'items': cart.decrease_item_quantity(product)}
     return HttpResponse(json.dumps(cart), content_type='application/json')
+
+def checkout(request):
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            cart_items = request.session.get('cart', [])
+            total_price = 0
+            for item in cart_items:
+                total_price += item['price']
+            f = form.save(commit=False)
+            f.items = json.dumps(cart_items)
+            f.total_price = total_price
+            f.save()
+            data = {
+                'name': form.instance.name,
+                'address': form.instance.address,
+                'email': form.instance.email,
+                'city': form.instance.city,
+                'pin': form.instance.pin,
+                'state': form.instance.state,
+                'items': form.instance.get_items,
+                'total_price': form.instance.total_price,
+                'status': form.instance.status,
+                'payment_option': form.instance.payment_option,
+                'created': form.instance.created.strftime("%b %d %Y"),
+            }
+            send_mail(
+                'Order placed on shoppingcart',
+                'Your order is placed success fully.',
+                'kmrvimal@gmail.com',
+                ['kriti.cs10@gmail.com'],
+                fail_silently=False,
+            )
+            return HttpResponse(json.dumps(data), content_type='application/json')
+            email = form.instance.email
+
+        else:
+            return HttpResponse(json.dumps(form.errors), content_type='application/json')
+    else:
+        form = CheckoutForm()
+        return render(request, 'shop/checkout_form.html', {'form': form})
